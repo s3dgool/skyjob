@@ -67,7 +67,7 @@ function SubscriberCard({ subscriber, language, dict }: { subscriber: Subscriber
     });
 
     return (
-        <Card className="overflow-hidden hover:shadow-lg transition-shadow duration-300 group">
+        <Card className="overflow-hidden hover:shadow-lg transition-shadow duration-300 group w-full sm:w-[calc(50%-12px)] md:w-[calc(33.333%-16px)] lg:w-[calc(25%-18px)] xl:w-[calc(20%-20px)]">
             <CardContent className="p-0">
                 <div className={cn("h-2 w-full", subscriber.avatarColor)} />
                 <div className="p-4 flex flex-col items-center text-center space-y-2">
