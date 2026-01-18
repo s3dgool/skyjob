@@ -18,7 +18,7 @@ export default function Home() {
             <div className="flex flex-col items-center space-y-4 text-center">
               {/* Branding Section */}
               <div className="flex flex-col items-center mb-6 animate-in fade-in zoom-in duration-500">
-                <div className="relative w-40 h-40 mb-6 -mt-12 flex items-center justify-center transform transition-transform hover:scale-105">
+                <div className="relative w-40 h-40 mb-6 -mt-12 bg-gray-50/50 dark:bg-gray-900/50 backdrop-blur-sm rounded-3xl p-6 shadow-2xl ring-1 ring-gray-200 dark:ring-gray-700 flex items-center justify-center transform transition-transform hover:scale-105">
                   <div className="relative w-full h-full">
                     <Image
                       src="/logo.png"
