@@ -17,6 +17,9 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "SkyJob",
   description: "Find your dream job",
+  icons: {
+    icon: "/logo.png",
+  },
 };
 
 export default function RootLayout({
