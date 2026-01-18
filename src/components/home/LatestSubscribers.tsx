@@ -46,10 +46,10 @@ export function LatestSubscribers() {
                 </div>
 
                 <div className={cn(
-                    "grid gap-6",
+                    "flex flex-wrap justify-center gap-6",
                     // If user view (3 items), use 3 cols on large screens
                     // If owner view (10 items), use dynamic grid fitting more
-                    !isOwnerView ? "md:grid-cols-3" : "sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5"
+                    // !isOwnerView ? "md:grid-cols-3" : "sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5"
                 )}>
                     {displayedSubscribers.map((sub) => (
                         <SubscriberCard key={sub.id} subscriber={sub} language={language} dict={dict} />

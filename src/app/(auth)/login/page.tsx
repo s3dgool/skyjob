@@ -5,7 +5,9 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { useLanguage } from "@/context/LanguageContext";
-import { Facebook, Mail } from "lucide-react";
+import { Facebook, Mail, Loader2 } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 // Simple Google Icon Component since lucide doesn't have the colored one
 function GoogleIcon(props: React.SVGProps<SVGSVGElement>) {
@@ -33,6 +35,16 @@ function GoogleIcon(props: React.SVGProps<SVGSVGElement>) {
 
 export default function LoginForm() {
     const { dict } = useLanguage();
+    const router = useRouter();
+    const [isLoading, setIsLoading] = useState<string | null>(null);
+
+    const handleSimulatedLogin = (provider: string) => {
+        setIsLoading(provider);
+        // Simulate network request
+        setTimeout(() => {
+            router.push("/dashboard");
+        }, 1500);
+    };
 
     return (
         <div className="flex h-screen items-center justify-center bg-gray-100 dark:bg-gray-900 px-4">
@@ -79,18 +91,20 @@ export default function LoginForm() {
                         </div>
 
                         <div className="grid grid-cols-3 gap-2">
-                            <Button variant="outline" className="w-full gap-2 p-0" onClick={() => alert("Google Login Service is not configured yet.")}>
-                                <GoogleIcon className="h-4 w-4" />
+                            <Button variant="outline" className="w-full gap-2 p-0" onClick={() => handleSimulatedLogin("Google")} disabled={!!isLoading}>
+                                {isLoading === "Google" ? <Loader2 className="h-4 w-4 animate-spin" /> : <GoogleIcon className="h-4 w-4" />}
                                 <span className="hidden sm:inline">Google</span>
                             </Button>
-                            <Button variant="outline" className="w-full gap-2 p-0 text-[#1877F2] hover:text-[#1877F2]/90" onClick={() => alert("Facebook Login Service is not configured yet.")}>
-                                <Facebook className="h-4 w-4 fill-current" />
+                            <Button variant="outline" className="w-full gap-2 p-0 text-[#1877F2] hover:text-[#1877F2]/90" onClick={() => handleSimulatedLogin("Facebook")} disabled={!!isLoading}>
+                                {isLoading === "Facebook" ? <Loader2 className="h-4 w-4 animate-spin" /> : <Facebook className="h-4 w-4 fill-current" />}
                                 <span className="hidden sm:inline">Facebook</span>
                             </Button>
-                            <Button variant="outline" className="w-full gap-2 p-0 text-[#0A66C2] hover:text-[#0A66C2]/90" onClick={() => alert("LinkedIn Login Service is not configured yet.")}>
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4">
-                                    <path d="M20.5 2h-17A1.5 1.5 0 002 3.5v17A1.5 1.5 0 003.5 22h17a1.5 1.5 0 001.5-1.5v-17A1.5 1.5 0 0020.5 2zM8 19H5v-9h3zM6.5 8.25A1.75 1.75 0 118.3 6.5a1.78 1.78 0 01-1.8 1.75zM19 19h-3v-4.74c0-1.42-.6-1.93-1.38-1.93A1.74 1.74 0 0013 14.19a.66.66 0 000 .14V19h-3v-9h2.9v1.3a3.11 3.11 0 012.7-1.4c1.55 0 3.36.86 3.36 4.5z" />
-                                </svg>
+                            <Button variant="outline" className="w-full gap-2 p-0 text-[#0A66C2] hover:text-[#0A66C2]/90" onClick={() => handleSimulatedLogin("LinkedIn")} disabled={!!isLoading}>
+                                {isLoading === "LinkedIn" ? <Loader2 className="h-4 w-4 animate-spin" /> : (
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4">
+                                        <path d="M20.5 2h-17A1.5 1.5 0 002 3.5v17A1.5 1.5 0 003.5 22h17a1.5 1.5 0 001.5-1.5v-17A1.5 1.5 0 0020.5 2zM8 19H5v-9h3zM6.5 8.25A1.75 1.75 0 118.3 6.5a1.78 1.78 0 01-1.8 1.75zM19 19h-3v-4.74c0-1.42-.6-1.93-1.38-1.93A1.74 1.74 0 0013 14.19a.66.66 0 000 .14V19h-3v-9h2.9v1.3a3.11 3.11 0 012.7-1.4c1.55 0 3.36.86 3.36 4.5z" />
+                                    </svg>
+                                )}
                                 <span className="hidden sm:inline">LinkedIn</span>
                             </Button>
                         </div>
