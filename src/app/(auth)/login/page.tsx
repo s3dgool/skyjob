@@ -46,6 +46,14 @@ export default function LoginForm() {
         }, 1500);
     };
 
+    const handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+        setIsLoading("Email");
+        setTimeout(() => {
+            router.push("/dashboard");
+        }, 1500);
+    };
+
     return (
         <div className="flex h-screen items-center justify-center bg-gray-100 dark:bg-gray-900 px-4">
             <Card className="mx-auto max-w-sm w-full">
@@ -57,27 +65,30 @@ export default function LoginForm() {
                 </CardHeader>
                 <CardContent>
                     <div className="grid gap-4">
-                        <div className="grid gap-2">
-                            <label htmlFor="email">{dict.auth.email}</label>
-                            <Input
-                                id="email"
-                                type="email"
-                                placeholder="m@example.com"
-                                required
-                            />
-                        </div>
-                        <div className="grid gap-2">
-                            <div className="flex items-center">
-                                <label htmlFor="password">{dict.auth.password}</label>
-                                <Link href="/forgot-password" className="ml-auto inline-block text-sm underline text-muted-foreground hover:text-primary">
-                                    {dict.auth.forgotPassword}
-                                </Link>
+                        <form onSubmit={handleSubmit} className="grid gap-4">
+                            <div className="grid gap-2">
+                                <label htmlFor="email">{dict.auth.email}</label>
+                                <Input
+                                    id="email"
+                                    type="email"
+                                    placeholder="m@example.com"
+                                    required
+                                />
                             </div>
-                            <Input id="password" type="password" required />
-                        </div>
-                        <Button type="submit" className="w-full">
-                            {dict.auth.loginTitle}
-                        </Button>
+                            <div className="grid gap-2">
+                                <div className="flex items-center">
+                                    <label htmlFor="password">{dict.auth.password}</label>
+                                    <Link href="/forgot-password" className="ml-auto inline-block text-sm underline text-muted-foreground hover:text-primary">
+                                        {dict.auth.forgotPassword}
+                                    </Link>
+                                </div>
+                                <Input id="password" type="password" required />
+                            </div>
+                            <Button type="submit" className="w-full" disabled={!!isLoading}>
+                                {isLoading === "Email" ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : null}
+                                {dict.auth.loginTitle}
+                            </Button>
+                        </form>
 
                         <div className="relative">
                             <div className="absolute inset-0 flex items-center">

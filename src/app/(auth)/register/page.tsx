@@ -47,6 +47,14 @@ export default function RegisterForm() {
         }, 1500);
     };
 
+    const handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+        setIsLoading("Email");
+        setTimeout(() => {
+            router.push("/dashboard");
+        }, 1500);
+    };
+
     return (
         <div className="flex h-screen items-center justify-center bg-gray-100 dark:bg-gray-900 px-4">
             <Card className="mx-auto max-w-sm w-full">
@@ -58,32 +66,35 @@ export default function RegisterForm() {
                 </CardHeader>
                 <CardContent>
                     <div className="grid gap-4">
-                        <div className="grid grid-cols-2 gap-4">
-                            <div className="grid gap-2">
-                                <Label htmlFor="first-name">{dict.auth.firstName}</Label>
-                                <Input id="first-name" placeholder="Max" required />
+                        <form onSubmit={handleSubmit} className="grid gap-4">
+                            <div className="grid grid-cols-2 gap-4">
+                                <div className="grid gap-2">
+                                    <Label htmlFor="first-name">{dict.auth.firstName}</Label>
+                                    <Input id="first-name" placeholder="Max" required />
+                                </div>
+                                <div className="grid gap-2">
+                                    <Label htmlFor="last-name">{dict.auth.lastName}</Label>
+                                    <Input id="last-name" placeholder="Robinson" required />
+                                </div>
                             </div>
                             <div className="grid gap-2">
-                                <Label htmlFor="last-name">{dict.auth.lastName}</Label>
-                                <Input id="last-name" placeholder="Robinson" required />
+                                <Label htmlFor="email">{dict.auth.email}</Label>
+                                <Input
+                                    id="email"
+                                    type="email"
+                                    placeholder="m@example.com"
+                                    required
+                                />
                             </div>
-                        </div>
-                        <div className="grid gap-2">
-                            <Label htmlFor="email">{dict.auth.email}</Label>
-                            <Input
-                                id="email"
-                                type="email"
-                                placeholder="m@example.com"
-                                required
-                            />
-                        </div>
-                        <div className="grid gap-2">
-                            <Label htmlFor="password">{dict.auth.password}</Label>
-                            <Input id="password" type="password" />
-                        </div>
-                        <Button type="submit" className="w-full">
-                            {dict.auth.createAccount}
-                        </Button>
+                            <div className="grid gap-2">
+                                <Label htmlFor="password">{dict.auth.password}</Label>
+                                <Input id="password" type="password" required minLength={6} />
+                            </div>
+                            <Button type="submit" className="w-full" disabled={!!isLoading}>
+                                {isLoading === "Email" ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : null}
+                                {dict.auth.createAccount}
+                            </Button>
+                        </form>
 
                         <div className="relative">
                             <div className="absolute inset-0 flex items-center">
